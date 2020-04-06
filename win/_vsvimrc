@@ -1,0 +1,133 @@
+set textwidth=80
+set clipboard=unnamed
+set rnu
+set scrolloff=3
+
+let mapleader=";"
+
+" edit and source _vsvimrc
+nnoremap <leader>ev :tabnew c:/users/tibi/_vsvimrc<CR>
+nnoremap <leader>sv :source c:/users/tibi/_vsvimrc<CR>
+
+" back to normal mode with jk
+inoremap <esc> <nop>
+inoremap jk <esc>
+
+" disable arrow keys in normal mode
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+" jk scroll
+nnoremap <C-j> <C-e>
+nnoremap <C-k> <C-y>
+
+" split navigation
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
+
+" tab navigation and mgmt
+nnoremap <C-l> gT
+nnoremap <C-h> gt
+nnoremap <leader>p :vsc Window.PinTab<CR>
+nnoremap <leader>P :vsc OtherContextMenus.EasyMDIToolWindow.CloseAllButPinned<CR>
+nnoremap <leader>t :vsc SolutionExplorer.SyncWithActiveDocument<CR>
+
+" code navigation
+nnoremap H ^
+nnoremap L $
+nnoremap - :vsc View.NavigateBackward<CR>
+nnoremap _ :vsc View.NavigateForward<CR>
+nnoremap [ :vsc Edit.NextMethod<CR>
+nnoremap ] :vsc Edit.PreviousMethod<CR>
+nnoremap gd :vsc Edit.GoToDefinition<CR>
+nnoremap gi :vsc Edit.GoToImplementation<CR>
+nnoremap gr :vsc Edit.FindAllReferences<CR>
+nnoremap gp :vsc Edit.PeekDefinition<CR>
+nnoremap gs *zzzz
+
+" folding
+nnoremap <space> :vsc Edit.ToggleOutliningExpansion<CR>
+nnoremap za :vsc Edit.ToggleOutliningExpansion<CR>
+nnoremap zA :vsc Edit.CollapseAllOutlining<CR>gg:vsc Edit.ToggleOutliningExpansion<CR>gg/{<CR>
+
+" commenting and format
+nnoremap gcc :vsc Edit.CommentSelection<CR>
+nnoremap gcu :vsc Edit.UncommentSelection<CR>
+vnoremap gc :vsc Edit.CommentSelection<CR>
+vnoremap gu :vsc Edit.UncommentSelection<CR>
+nnoremap gf mlggVG=`l:delm l<CR>
+nnoremap gq mmggVGgq`mzz:delm m<CR>
+
+" surround
+nnoremap g" viw<esc>a"<esc>bi"<esc>lel
+nnoremap g' viw<esc>a'<esc>bi'<esc>lel
+vnoremap g[ xi{<CR>}<Esc>PvaB=
+
+" error navigation and breakpoints
+nnoremap <leader>e :vsc View.NextError<CR>
+nnoremap <leader>E :vsc View.PreviousError<CR>
+nnoremap <leader>b :vsc Debug.ToggleBreakpoint<CR>
+nnoremap <leader>B :vsc Debug.DeleteAllBreakPoints<CR>
+
+" tfs
+nnoremap tc :vsc File.TfsCompare<CR>
+nnoremap th :vsc File.TfsHistory<CR>
+
+" refactoring
+nnoremap R :vsc Refactor.Rename<CR><esc>b
+nnoremap <leader>r :vsc Refactor.ReorderParameters<CR>
+vnoremap <leader>m :vsc Refactor.ExtractMethod<CR>
+""" aligns function parameters under open parentheses
+nnoremap <leader>l 0zof(mmy0/)<CR>a<CR><esc>`mvi(:s/\n//g<CR>`mvi(:s/,\s\+/, /g<CR>`mvi(<CR>:s/\%V,/,\r/g<CR>`mj0V/)<CR>:s/^/<C-r>"/g<CR>`mj<C-q>/)<CR>^r <esc>0/{<CR>:delm m<CR>
+""" joins all function parameters in one line
+nnoremap <leader>_ vi(<CR>:s/\%V,\s*\r*\n*\r*\s*/, /<CR>
+
+" search for word under cursor
+nnoremap <leader>/ :%s/<C-r><C-w>//g
+
+" sort lines
+vnoremap <leader>az :g/^/m'<
+vnoremap <leader>za :g/^/m'>
+
+" visual mode enhancements
+vnoremap <space> <esc>
+vnoremap p "_dP
+vnoremap > >gv
+vnoremap < <gv
+
+" visual mode shortcuts
+vnoremap H ^
+vnoremap L $
+vnoremap , t,
+vnoremap ; t;
+vnoremap 0 t)
+vnoremap 9 i(
+vnoremap [ iB
+vnoremap in9 <esc>/(<CR>vi(
+vnoremap il9 <esc>?)<CR>vi(
+vnoremap in[ <esc>/{<CR>vi{
+vnoremap il[ <esc>?}<CR>vi{
+
+" operator pending shortcuts
+onoremap H ^
+onoremap L $
+onoremap , t,
+onoremap ; t;
+onoremap 0 t)
+onoremap 9 i(
+onoremap [ iB
+onoremap in9 :<c-u>normal! /(<CR>vi(<cr>
+onoremap il9 :<c-u>normal! ?)<CR>vi(<cr>
+onoremap in[ :<c-u>normal! /{<CR>vi{<cr>
+onoremap il[ :<c-u>normal! ?}<CR>vi{<cr>
+
+:behave mswin
+
+" vim sneak like mappings
+source ~/_vsvimsneaklike
+
+echo "_vsvimrc sourced!"
