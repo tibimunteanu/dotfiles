@@ -6,8 +6,8 @@ set scrolloff=3
 let mapleader=";"
 
 " edit and source _vsvimrc
-nnoremap <leader>ev :tabnew c:/users/tibi/_vsvimrc<CR>
-nnoremap <leader>sv :source c:/users/tibi/_vsvimrc<CR>
+nnoremap <leader>ev :tabnew c:/dev/dotfiles/win/_vsvimrc<CR>
+nnoremap <leader>sv :source c:/dev/dotfiles/win/_vsvimrc<CR>
 
 " back to normal mode with jk
 inoremap <esc> <nop>
@@ -126,8 +126,3 @@ onoremap in[ :<c-u>normal! /{<CR>vi{<cr>
 onoremap il[ :<c-u>normal! ?}<CR>vi{<cr>
 
 :behave mswin
-
-" vim sneak like mappings
-source ~/_vsvimsneaklike
-
-echo "_vsvimrc sourced!"
