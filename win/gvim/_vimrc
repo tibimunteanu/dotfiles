@@ -63,6 +63,13 @@ function TabLine()
   return s
 endfunction
 
+" /copyright      Case insensitive
+" /Copyright      Case sensitive
+" /copyright\C    Case sensitive
+" /Copyright\c    Case insensitive
+set ignorecase
+set smartcase
+
 let mapleader=";"
 let g:asyncrun_open = 10
 
@@ -76,9 +83,9 @@ nnoremap <silent> <leader>q :call asyncrun#quickfix_toggle(10)<cr>
 noremap <silent> gd :AsyncRun! -cwd=<root> grep -n -s -R <C-R><C-W> --include=*.h --include=*.c* <root> <cr>
 
 " edit and source _vsvimrc
-nnoremap <leader>ev :tabnew $MYVIMRC<CR>
+nnoremap <leader>ev :tabnew c:/dev/dotfiles/win/gvim/_vimrc<CR>
 nnoremap <leader>sv :w<bar>source $MYVIMRC<CR>
-execute "nnoremap \<leader>ec :tabnew $HOME/vimfiles/colors/" . g:colors_name . ".vim\<CR>"
+execute "nnoremap \<leader>ec :tabnew c:/dev/dotfiles/win/gvim/vimfiles/colors/" . g:colors_name . ".vim\<CR>"
 
 " move line up/down
 nnoremap <leader>k ddkP

@@ -8,24 +8,18 @@ set timeoutlen=1000
 set ttimeoutlen=0
 set expandtab
 
-set ignorecase
-set smartcase
 " /copyright      Case insensitive
 " /Copyright      Case sensitive
 " /copyright\C    Case sensitive
 " /Copyright\c    Case insensitive
+set ignorecase
+set smartcase
 
 let mapleader=";"
 
-" edit _fikra
-nnoremap <leader>ef :tabnew c:/users/tibi/source/repos/Fikra/Fikra/Scratchpad.txt<CR>
-
 " edit and source _vsvimrc
-nnoremap <leader>ev :tabnew c:/dev/dotfiles/win/_vsvimrc<CR>
-nnoremap <leader>sv :source c:/dev/dotfiles/win/_vsvimrc<CR>
-
-" edit wiki
-nnoremap <leader>ew :tabnew C:\Users\Tibi\Documents\__GameDev\30thcm-story-ai\Assets\Readme.md<CR>
+nnoremap <leader>ev :tabnew c:/dev/dotfiles/win/vsvim/_vsvimrc<CR>
+nnoremap <leader>sv :source c:/users/tibi/_vsvimrc<CR>
 
 " back to normal mode with jk
 inoremap <esc> <esc>:echo<CR>a
@@ -80,7 +74,6 @@ nnoremap gi :vsc Edit.GoToImplementation<CR>
 nnoremap gr :vsc Edit.FindAllReferences<CR>
 nnoremap gp :vsc Edit.PeekDefinition<CR>
 nnoremap gs *
-nnoremap gk #
 
 " folding
 nnoremap <space> :vsc Edit.ToggleOutliningExpansion<CR>
@@ -163,3 +156,4 @@ onoremap in[ :<c-u>normal! /{<CR>vi{<CR>
 onoremap il[ :<c-u>normal! ?}<CR>vi{<CR>
 
 :behave mswin
+
