@@ -8,20 +8,21 @@ if version > 580
  endif
 endif
 
-function!  SyntaxItem() 
+function! SyntaxItem() 
     return synIDattr(synID(line("."),col("."),1),"name") 
 endfunction
+nnoremap <leader>i :echo SyntaxItem()<CR>
 
 let colors_name = "autumn"
 
 :hi EndOfBuffer guifg=bg
-:hi Normal guifg=seashell2 guibg=grey10 gui=NONE 
+:hi Normal guifg=bisque1 guibg=grey10 gui=NONE 
 :hi Cursor guibg=green guifg=black gui=NONE
 :hi CursorLine cterm=underline term=underline ctermbg=NONE guibg=NONE
 :hi VertSplit guibg=bg guifg=bg gui=NONE cterm=reverse
 :hi vimOption guibg=bg guifg=salmon gui=NONE cterm=reverse
-:hi vimNotation guibg=bg guifg=LightGoldenrod2 gui=NONE cterm=reverse
-:hi vimMapModKey guibg=bg guifg=LightGoldenrod2 gui=NONE cterm=reverse
+:hi vimNotation guibg=bg guifg=LightSalmon1 gui=NONE cterm=reverse
+:hi vimMapModKey guibg=bg guifg=LightSalmon1 gui=NONE cterm=reverse
 :hi Folded guibg=black guifg=grey40 ctermfg=grey ctermbg=darkgrey gui=NONE
 :hi FoldColumn guibg=black guifg=grey20 ctermfg=4 ctermbg=7 gui=NONE
 :hi IncSearch guifg=green guibg=black cterm=NONE ctermfg=yellow ctermbg=green gui=NONE
@@ -42,7 +43,20 @@ let colors_name = "autumn"
 :hi StatusLineUnmodifiable guibg=NONE guifg=bg  gui=NONE
 :hi StatusLineUnmodifiableNC guibg=NONE guifg=bg  gui=NONE
 :hi Title guifg=gold gui=NONE cterm=NONE ctermfg=yellow
-:hi Statement guifg=LightGoldenrod2 ctermfg=lightblue gui=NONE
+:hi Statement guifg=LightSalmon1 ctermfg=lightblue gui=NONE
+:hi csModifier guifg=LightSalmon1 ctermfg=lightblue gui=NONE
+:hi csClass guifg=LightSalmon1 ctermfg=lightblue gui=NONE
+:hi csGeneric guifg=tan4 ctermfg=lightblue gui=NONE
+:hi csNewType guifg=tan4 ctermfg=lightblue gui=NONE
+:hi cStorageClass guifg=LightSalmon1 ctermfg=lightblue gui=NONE
+:hi cOperator guifg=LightSalmon1 ctermfg=lightblue gui=NONE
+:hi csBraces guifg=gray45 guibg=bg gui=NONE
+:hi csParens guifg=gray45 guibg=bg gui=NONE
+:hi csEndColon guifg=gray45 guibg=bg gui=NONE
+:hi cTodo guifg=white guibg=brown gui=BOLD
+:hi cDefine guifg=gray60 guibg=bg gui=NONE
+:hi Define guifg=gray60 gui=NONE ctermfg=yellow
+:hi MatchParen guifg=white guibg=brown gui=NONE
 :hi Visual gui=NONE guifg=white guibg=brown cterm=reverse
 :hi WarningMsg guifg=salmon ctermfg=1 gui=NONE
 :hi String guifg=lightgreen ctermfg=darkcyan gui=NONE
@@ -50,13 +64,12 @@ let colors_name = "autumn"
 :hi Constant guifg=lightgreen ctermfg=brown gui=NONE
 :hi Special guifg=darkkhaki ctermfg=brown gui=NONE
 :hi Identifier guifg=salmon ctermfg=red gui=NONE
-:hi Include guifg=LightGoldenrod2 ctermfg=red gui=NONE
+:hi Include guifg=LightSalmon1 ctermfg=red gui=NONE
 :hi PreProc guifg=lightred guibg=white ctermfg=red gui=NONE
-:hi Operator guifg=lightgrey ctermfg=Red gui=NONE
-:hi Define guifg=lightgrey gui=NONE ctermfg=yellow
-:hi Type guifg=salmon ctermfg=2 gui=NONE
+:hi Operator guifg=grey45 ctermfg=Red gui=NONE
+:hi Type guifg=tan4 ctermfg=2 gui=NONE
 :hi Function guifg=seashell2 ctermfg=brown gui=NONE
-:hi Structure guifg=salmon ctermfg=green gui=NONE
+:hi Structure guifg=LightSalmon1 ctermfg=green gui=NONE
 :hi LineNr guifg=grey40 ctermfg=3 gui=NONE
 :hi Ignore guifg=grey40 cterm=NONE ctermfg=7 gui=NONE
 :hi Todo guifg=orangered guibg=yellow2 gui=NONE
@@ -71,26 +84,32 @@ let colors_name = "autumn"
 :hi Underlined cterm=underline ctermfg=5 gui=NONE
 :hi Error guifg=White guibg=Red cterm=NONE ctermfg=7 ctermbg=1 gui=NONE
 :hi SpellErrors guifg=White guibg=Red cterm=NONE ctermfg=7 ctermbg=1 gui=NONE
-:hi TabLine guifg=moccasin guibg=gray24 gui=NONE
+:hi TabLine guifg=gray55 guibg=gray24 gui=NONE
 :hi TabLineSel guifg=white guibg=bg gui=bold
 :hi TabLineFill guifg=bg guibg=gray24 gui=NONE
 
-" setlocal nohlsearch
-" call search('^" BEGIN_COLOR_LIST', 'e')
-" while search('\w\+') > 0
-"   let w = expand('<cword>')
-"   if w == 'END_COLOR_LIST'
-"     break
-"   endif
-"   if exists('g:rgb_fg') && g:rgb_fg
-"     execute 'hi col_'.w.' guifg='.w.' guibg=NONE'
-"   else
-"     execute 'hi col_'.w.' guifg=black guibg='.w
-"   endif
-"   execute 'syn keyword col_'.w.' '.w.' contained containedin=vimLineComment'
-" endwhile
-" call search('^" BEGIN_COLOR_LIST')
-" normal 0jzt
+function! TestColors(mode) 
+  if a:mode
+    setlocal nohlsearch
+    call search('^" BEGIN_COLOR_LIST', 'e')
+    while search('\w\+') > 0
+      let w = expand('<cword>')
+      if w == 'END_COLOR_LIST'
+          break
+      endif
+      if a:mode == 2
+          execute 'hi col_'.w.' guifg='.w.' guibg=NONE'
+      endif
+      if a:mode == 1
+          execute 'hi col_'.w.' guifg=black guibg='.w
+      endif
+      execute 'syn keyword col_'.w.' '.w.' contained containedin=vimLineComment'
+    endwhile
+    call search('^" BEGIN_COLOR_LIST')
+    normal 0jzt
+  endif
+endfunction
+:call TestColors(0) " 0 - none, 1 - bg color, 2 - fg color
 
 " Following is from $VIMRUNTIME/rgb.txt with duplicate colors omitted.
 " BEGIN_COLOR_LIST
