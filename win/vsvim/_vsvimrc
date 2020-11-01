@@ -1,0 +1,165 @@
+set number
+set relativenumber 
+set clipboard=unnamed
+set textwidth=80
+set wrap
+set scrolloff=2
+set timeoutlen=1000
+set ttimeoutlen=0
+set expandtab
+
+set ignorecase
+set smartcase
+" /copyright      Case insensitive
+" /Copyright      Case sensitive
+" /copyright\C    Case sensitive
+" /Copyright\c    Case insensitive
+
+let mapleader=";"
+
+" edit _fikra
+nnoremap <leader>ef :tabnew c:/users/tibi/source/repos/Fikra/Fikra/Scratchpad.txt<CR>
+
+" edit and source _vsvimrc
+nnoremap <leader>ev :tabnew c:/dev/dotfiles/win/_vsvimrc<CR>
+nnoremap <leader>sv :source c:/dev/dotfiles/win/_vsvimrc<CR>
+
+" edit wiki
+nnoremap <leader>ew :tabnew C:\Users\Tibi\Documents\__GameDev\30thcm-story-ai\Assets\Readme.md<CR>
+
+" back to normal mode with jk
+inoremap <esc> <esc>:echo<CR>a
+inoremap jk <esc>
+
+" apply macros with Q
+nnoremap Q @q
+vnoremap Q :norm @q<cr>
+
+" disable arrow keys in normal mode
+nnoremap <up> <C-y>
+nnoremap <down> <C-e>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+" clear info with enter
+nnoremap <CR> :echo<CR>
+
+" jk scroll
+inoremap <C-j> <esc><C-e><C-e><C-e>
+inoremap <C-k> <esc><C-y><C-y><C-y>
+nnoremap <C-j> <C-e><C-e><C-e>
+nnoremap <C-k> <C-y><C-y><C-y>
+
+" split navigation
+inoremap <M-h> <esc><C-w>h
+inoremap <M-j> <esc><C-w>j
+inoremap <M-k> <esc><C-w>k
+inoremap <M-l> <esc><C-w>l
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
+
+" tab navigation and mgmt
+nnoremap <C-l> gt
+nnoremap <BS> gT
+nnoremap <leader>p :vsc Window.PinTab<CR>:vsc Window.PinTab<CR>:vsc Window.PinTab<CR>
+nnoremap <leader>P :vsc OtherContextMenus.EasyMDIToolWindow.CloseAllButPinned<CR>
+nnoremap <leader>t :vsc SolutionExplorer.SyncWithActiveDocument<CR>
+nnoremap <leader>g :vsc View.TfsTeamExplorer<CR>
+
+" code navigation
+nnoremap H ^
+nnoremap L $
+nnoremap - :vsc View.NavigateBackward<CR>
+nnoremap _ :vsc View.NavigateForward<CR>
+nnoremap ] :vc Edit.NextMethod<CR>zt
+nnoremap [ :vsc Edit.PreviousMethod<CR>zt
+nnoremap gd :vsc Edit.GoToDefinition<CR>
+nnoremap gi :vsc Edit.GoToImplementation<CR>
+nnoremap gr :vsc Edit.FindAllReferences<CR>
+nnoremap gp :vsc Edit.PeekDefinition<CR>
+nnoremap gs *
+nnoremap gk #
+
+" folding
+nnoremap <space> :vsc Edit.ToggleOutliningExpansion<CR>
+nnoremap za :vsc Edit.ToggleOutliningExpansion<CR>
+nnoremap zA :vsc Edit.CollapseAllOutlining<CR>gg:vsc Edit.ToggleOutliningExpansion<CR>gg/{<CR>
+nnoremap zT :vsc Edit.ToggleAllOutlining<CR>
+
+" commenting and format
+nnoremap gcc :vsc Edit.CommentSelection<CR>
+nnoremap gcu :vsc Edit.UncommentSelection<CR>
+vnoremap gc :vsc Edit.CommentSelection<CR>
+vnoremap gu :vsc Edit.UncommentSelection<CR>
+nnoremap gf mlggVG=`l:delm l<CR>
+nnoremap gq mmggVGgq`mzz:delm m<CR>
+nnoremap <leader><space> :vsc Edit.ViewWhiteSpace<CR>
+
+" surround
+nnoremap g" viw<esc>a"<esc>bi"<esc>lel
+nnoremap g' viw<esc>a'<esc>bi'<esc>lel
+vnoremap g[ xi{<CR>}<Esc>PvaB=
+
+" error navigation and breakpoints
+nnoremap <leader>e :vsc View.NextError<CR>
+nnoremap <leader>E :vsc View.PreviousError<CR>
+nnoremap <leader>b :vsc Debug.ToggleBreakpoint<CR>
+nnoremap <leader>B :vsc Debug.DeleteAllBreakPoints<CR>
+
+" tfs
+nnoremap tc :vsc File.TfsCompare<CR>
+nnoremap th :vsc File.TfsHistory<CR>
+
+" refactoring
+nnoremap R :vsc Refactor.Rename<CR><esc>b
+nnoremap <leader>r :vsc Refactor.ReorderParameters<CR>
+vnoremap <leader>m :vsc Refactor.ExtractMethod<CR>
+""" aligns function parameters under open parentheses
+nnoremap <leader>l 0zof(mmy0/)<CR>a<CR><esc>`mvi(:s/\n//g<CR>`mvi(:s/,\s\+/, /g<CR>`mvi(<CR>:s/\%V,/,\r/g<CR>`mj0V/)<CR>:s/^/<C-r>"/g<CR>`mj<C-q>/)<CR>^r <esc>0/{<CR>:delm m<CR>
+""" joins all function parameters in one line
+nnoremap <leader>_ vi(<CR>:s/\%V,\s*\r*\n*\r*\s*/, /<CR>
+
+" search for word under cursor
+nnoremap <leader>/ :%s/<C-r><C-w>//g
+
+" sort lines
+vnoremap <leader>az :g/^/m'<
+vnoremap <leader>za :g/^/m'>
+
+" visual mode enhancements
+vnoremap <space> <esc>
+vnoremap p "_dP
+vnoremap P "_dP
+vnoremap > >gv
+vnoremap < <gv
+
+" visual mode shortcuts
+vnoremap H ^
+vnoremap L $
+vnoremap , t,
+vnoremap ; t;
+vnoremap 0 t)
+vnoremap 9 i(
+vnoremap [ iB
+vnoremap in9 <esc>/(<CR>vi(
+vnoremap il9 <esc>?)<CR>vi(
+vnoremap in[ <esc>/{<CR>vi{
+vnoremap il[ <esc>?}<CR>vi{
+
+" operator pending shortcuts
+onoremap <space> <esc>
+onoremap H ^
+onoremap L $
+onoremap , t,
+onoremap ; t;
+onoremap 0 t)
+onoremap 9 i(
+onoremap [ iB
+onoremap in9 :<c-u>normal! /(<CR>vi(<CR>
+onoremap il9 :<c-u>normal! ?)<CR>vi(<CR>
+onoremap in[ :<c-u>normal! /{<CR>vi{<CR>
+onoremap il[ :<c-u>normal! ?}<CR>vi{<CR>
+
+:behave mswin

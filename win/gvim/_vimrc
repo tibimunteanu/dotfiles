@@ -1,0 +1,192 @@
+call plug#begin()
+Plug 'skywind3000/asyncrun.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+call plug#end()
+
+syntax on
+set langmenu=en_US.utf8
+set encoding=utf-8
+set guifont=Consolas:h10:cANSI
+set number
+set relativenumber 
+set numberwidth=1
+set autoread
+set clipboard=unnamed
+set textwidth=80
+set wrap
+set scrolloff=2
+set sidescrolloff=5
+set noshowmode
+set noruler
+set noswapfile
+set shiftround
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set display+=lastline
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+set nolist
+set shortmess+=A
+set showcmd
+set cmdheight=1
+set guioptions=i
+set statusline=
+set showtabline=2
+set titlestring=\ 
+set tabline=%!TabLine()
+function TabLine()
+  let s = ''
+  for t in range(tabpagenr('$'))
+    let n = ''
+    let m = 0
+    let bc = len(tabpagebuflist(t + 1))
+    for b in tabpagebuflist(t + 1)
+      let n .= fnamemodify(bufname(b), ":t")
+      if getbufvar(b, "&modified")
+        let m += 1
+      endif
+      let bc -= 1
+    endfor
+    if t + 1 == tabpagenr()
+      let s .= '%#TabLineSel#'
+    else
+      let s .= '%#TabLine#'
+    endif
+    let s .= ' ' . n
+    if m > 0
+      let s .= '*'
+    endif
+    let s .= ' ' . '%#TabLine#'
+  endfor
+  let s .= '%#TabLineFill#'
+  return s
+endfunction
+
+let mapleader=";"
+let g:asyncrun_open = 10
+
+autocmd GUIEnter * simalt ~x
+autocmd Filetype qf setlocal statusline=
+
+colorscheme autumn
+
+nnoremap <silent> <leader>r :w<bar>AsyncRun -cwd=<root> build.bat<cr>
+nnoremap <silent> <leader>q :call asyncrun#quickfix_toggle(10)<cr>
+noremap <silent> gd :AsyncRun! -cwd=<root> grep -n -s -R <C-R><C-W> --include=*.h --include=*.c* <root> <cr>
+
+" edit and source _vsvimrc
+nnoremap <leader>ev :tabnew $MYVIMRC<CR>
+nnoremap <leader>sv :w<bar>source $MYVIMRC<CR>
+execute "nnoremap \<leader>ec :tabnew $HOME/vimfiles/colors/" . g:colors_name . ".vim\<CR>"
+
+" move line up/down
+nnoremap <leader>k ddkP
+nnoremap <leader>j ddjP
+
+" back to normal mode with jk
+inoremap <esc> <esc>:echo<CR>a
+inoremap jk <esc>
+
+" classic backspace
+inoremap <Backspace> <esc>cl
+
+" apply macros with Q
+nnoremap Q @q
+vnoremap Q :norm @q<cr>
+
+" disable arrow keys in normal mode
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+" clear info with enter
+nnoremap <CR> :echo<CR>
+
+" jk scroll
+inoremap <C-j> <esc><C-e><C-e><C-e>
+inoremap <C-k> <esc><C-y><C-y><C-y>
+nnoremap <C-j> <C-e><C-e><C-e>
+nnoremap <C-k> <C-y><C-y><C-y>
+
+" split navigation
+inoremap <M-h> <esc><C-w>h
+inoremap <M-j> <esc><C-w>j
+inoremap <M-k> <esc><C-w>k
+inoremap <M-l> <esc><C-w>l
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
+
+" buffer navigation
+" nnoremap <C-l> :bprev<CR>
+" nnoremap <C-h> :bnext<CR>
+
+" tab navigation and mgmt
+nnoremap <C-l> gt
+nnoremap <C-h> gT
+nnoremap <Backspace> gT
+
+" code navigation
+nnoremap H ^
+nnoremap L $
+nnoremap - <C-o>
+nnoremap _ <C-i>
+nnoremap gs *
+
+" folding
+nnoremap <space> zt
+
+" commenting and format
+nnoremap gf mlggVG=`l:delm l<CR>
+nnoremap gq mmggVGgq`mzz:delm m<CR>
+
+" surround
+nnoremap g" viw<esc>a"<esc>bi"<esc>lel
+nnoremap g' viw<esc>a'<esc>bi'<esc>lel
+vnoremap g[ xi{<CR>}<Esc>PvaB=
+
+" search for word under cursor
+nnoremap <leader>/ :%s/<C-r><C-w>//g
+
+" sort lines
+vnoremap <leader>az :g/^/m'<
+vnoremap <leader>za :g/^/m'>
+
+" visual mode enhancements
+vnoremap <space> <esc>
+vnoremap p "_dP
+vnoremap P "_dP
+vnoremap > >gv
+vnoremap < <gv
+
+" visual mode shortcuts
+vnoremap H ^
+vnoremap L $
+vnoremap , t,
+vnoremap ; t;
+vnoremap 0 t)
+vnoremap 9 i(
+vnoremap [ iB
+vnoremap in9 <esc>/(<CR>vi(
+vnoremap il9 <esc>?)<CR>vi(
+vnoremap in[ <esc>/{<CR>vi{
+vnoremap il[ <esc>?}<CR>vi{
+
+" operator pending shortcuts
+onoremap H ^
+onoremap L $
+onoremap , t,
+onoremap ; t;
+onoremap 0 t)
+onoremap 9 i(
+onoremap [ iB
+onoremap in9 :<c-u>normal! /(<CR>vi(<CR>
+onoremap il9 :<c-u>normal! ?)<CR>vi(<CR>
+onoremap in[ :<c-u>normal! /{<CR>vi{<CR>
+onoremap il[ :<c-u>normal! ?}<CR>vi{<CR>
+
+:behave mswin
+

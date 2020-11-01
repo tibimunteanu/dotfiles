@@ -169,6 +169,8 @@ nnoremap L $
 nnoremap - <C-o>
 nnoremap _ <C-i>
 nnoremap gs *zz
+nnoremap [ ]]zt
+nnoremap ] [[zt
 
 " folding
 nnoremap <space> za
