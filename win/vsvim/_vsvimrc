@@ -86,7 +86,7 @@ nnoremap gcc :vsc Edit.CommentSelection<CR>
 nnoremap gcu :vsc Edit.UncommentSelection<CR>
 vnoremap gc :vsc Edit.CommentSelection<CR>
 vnoremap gu :vsc Edit.UncommentSelection<CR>
-nnoremap gf mlggVG=`l:delm l<CR>
+nnoremap gf mlgg=G`l:delm l<CR>
 nnoremap gq mmggVGgq`mzz:delm m<CR>
 nnoremap <leader><space> :vsc Edit.ViewWhiteSpace<CR>
 
